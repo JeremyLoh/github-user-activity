@@ -4,7 +4,7 @@
   "description": "Fetch github user activity and display it in terminal",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/JeremyLoh/github-user-activity#readme",
   "devDependencies": {
+    "msw": "^2.4.7",
     "vitest": "2.1.1"
+  },
+  "dependencies": {
+    "ky": "^1.7.2"
   }
 }
