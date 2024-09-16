@@ -2,6 +2,7 @@
 
 import { Actor } from "../model/actor"
 import { CreateEventPayload } from "../model/createEventPayload"
+import { Repo } from "../model/repo"
 
 class CreateEvent {
   constructor(actor, repo, payload, createdAt) {
@@ -17,15 +18,6 @@ class CreateEvent {
       ? `"${this.repo.name}"`
       : `"${this.payload.ref}" on repository "${this.repo.name}"`
     return `- Created new ${createType} ${name}`
-  }
-}
-
-class Repo {
-  constructor(repo) {
-    const { id, name, url } = repo
-    this.id = id
-    this.name = name
-    this.url = url
   }
 }
 
