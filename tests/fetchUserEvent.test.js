@@ -54,7 +54,28 @@ describe("fetch user event", async () => {
       new RegExp(
         String.raw`\- Created new branch \"fetch-user-activity\" on repository \"${TEST_USERNAME}/github-user-activity\"`
       ),
-      "Should display create new repository user event ('CreateEvent')"
+      "Should display create new branch user event ('CreateEvent')"
+    )
+  })
+
+  it("should fetch delete event for valid user and display event summary", async () => {
+    const { stdin, stdout } = mockStdinAndStdout()
+    main()
+    stdin.send(TEST_USERNAME + EOL)
+    stdin.end()
+    await sleep(50)
+    stdout.stop()
+    expect(stdout.output).not.toMatch(
+      new RegExp(
+        String.raw`Could not fetch user events for user \[${TEST_USERNAME}\]`
+      ),
+      "Should not display no fetch event found for user message"
+    )
+    expect(stdout.output).toMatch(
+      new RegExp(
+        String.raw`\- Deleted branch \"delete-task\" from \"${TEST_USERNAME}/task-tracker\"`
+      ),
+      "Should display delete user event ('DeleteEvent')"
     )
   })
 })

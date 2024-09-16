@@ -1,4 +1,5 @@
 import { CreateEvent } from "./createEvent"
+import { DeleteEvent } from "./deleteEvent"
 
 const EventType = Object.freeze({
   create: "CreateEvent",
@@ -14,6 +15,13 @@ class EventFactory {
     switch (type) {
       case EventType.create:
         return new CreateEvent(
+          event["actor"],
+          event["repo"],
+          event["payload"],
+          event["created_at"]
+        )
+      case EventType.delete:
+        return new DeleteEvent(
           event["actor"],
           event["repo"],
           event["payload"],
