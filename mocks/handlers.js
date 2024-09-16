@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw"
-import { getCreateEvent } from "./createEvent"
+import { getCreateEventBranch, getCreateEventRepository } from "./createEvent"
 import { getDeleteEvent } from "./deleteEvent"
 import { getPushEvent } from "./pushEvent"
 import { getPullRequestEvent } from "./pullRequestEvent"
@@ -11,7 +11,8 @@ export const INVALID_USERNAME = "INVALID_USERNAME"
 export const restHandlers = [
   http.get(`https://api.github.com/users/${TEST_USERNAME}/events`, () => {
     return HttpResponse.json([
-      getCreateEvent(TEST_USERNAME),
+      getCreateEventRepository(TEST_USERNAME),
+      getCreateEventBranch(TEST_USERNAME),
       getDeleteEvent(TEST_USERNAME),
       getPushEvent(TEST_USERNAME, TEST_EMAIL),
       getPullRequestEvent(TEST_USERNAME),
