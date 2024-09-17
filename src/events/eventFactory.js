@@ -1,5 +1,6 @@
 import { CreateEvent } from "./createEvent"
 import { DeleteEvent } from "./deleteEvent"
+import { PullRequestEvent } from "./pullRequestEvent"
 
 const EventType = Object.freeze({
   create: "CreateEvent",
@@ -22,6 +23,13 @@ class EventFactory {
         )
       case EventType.delete:
         return new DeleteEvent(
+          event["actor"],
+          event["repo"],
+          event["payload"],
+          event["created_at"]
+        )
+      case EventType.pullRequest:
+        return new PullRequestEvent(
           event["actor"],
           event["repo"],
           event["payload"],

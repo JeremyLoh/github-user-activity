@@ -78,4 +78,25 @@ describe("fetch user event", async () => {
       "Should display delete user event ('DeleteEvent')"
     )
   })
+
+  it("should fetch pull request event for valid user and display event summary", async () => {
+    const { stdin, stdout } = mockStdinAndStdout()
+    main()
+    stdin.send(TEST_USERNAME + EOL)
+    stdin.end()
+    await sleep(50)
+    stdout.stop()
+    expect(stdout.output).not.toMatch(
+      new RegExp(
+        String.raw`Could not fetch user events for user \[${TEST_USERNAME}\]`
+      ),
+      "Should not display no fetch event found for user message"
+    )
+    expect(stdout.output).toMatch(
+      new RegExp(
+        String.raw`\- Closed pull request #6 \"Add delete command and tests\" from branch TEST_USERNAME:delete-task => TEST_USERNAME:main on repository \"TEST_USERNAME/task-tracker\"`
+      ),
+      "Should display closed pull request user event ('PullRequestEvent')"
+    )
+  })
 })
