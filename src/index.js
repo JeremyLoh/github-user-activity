@@ -1,5 +1,6 @@
 const readline = require("node:readline")
 const { EventFactory } = require("./events/eventFactory")
+const { rateLimit } = require("./rateLimit")
 
 async function main() {
   printProgramName()
@@ -15,6 +16,10 @@ async function main() {
 }
 
 async function processLine(line) {
+  if (!rateLimit.isValidRequest()) {
+    console.log("Too many requests. Please try again later")
+    return
+  }
   try {
     const { error, events } = await retrieveUserEvents(line.trim())
     if (error) {
