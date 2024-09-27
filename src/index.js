@@ -1,6 +1,5 @@
-import ky from "ky"
-import readline from "node:readline"
-import { EventFactory } from "./events/eventFactory"
+const readline = require("node:readline")
+const { EventFactory } = require("./events/eventFactory")
 
 async function main() {
   printProgramName()
@@ -22,6 +21,10 @@ async function processLine(line) {
       console.log(error)
       return
     }
+    if (!events || events.length === 0) {
+      console.log("\tCould not find any information about provided user")
+      return
+    }
     const convertedEvents = events.map((event) =>
       EventFactory.createEvent(event)
     )
@@ -36,6 +39,7 @@ async function processLine(line) {
 }
 
 async function retrieveUserEvents(username) {
+  const ky = (await import("ky")).default
   const url = `https://api.github.com/users/${username}/events`
   try {
     const events = await ky.get(url).json()

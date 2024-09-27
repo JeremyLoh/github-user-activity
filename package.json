@@ -4,6 +4,7 @@
   "description": "Fetch github user activity and display it in terminal",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "vitest"
   },
   "repository": {

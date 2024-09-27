@@ -1,7 +1,7 @@
-import { CreateEvent } from "./createEvent"
-import { DeleteEvent } from "./deleteEvent"
-import { PullRequestEvent } from "./pullRequestEvent"
-import { PushEvent } from "./pushEvent"
+const { CreateEvent } = require("./createEvent")
+const { DeleteEvent } = require("./deleteEvent")
+const { PullRequestEvent } = require("./pullRequestEvent")
+const { PushEvent } = require("./pushEvent")
 
 const EventType = Object.freeze({
   create: "CreateEvent",

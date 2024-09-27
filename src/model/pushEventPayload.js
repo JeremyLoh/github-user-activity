@@ -1,4 +1,4 @@
-import { EOL } from "node:os"
+const { EOL } = require("node:os")
 
 class PushEventPayload {
   constructor(payload) {

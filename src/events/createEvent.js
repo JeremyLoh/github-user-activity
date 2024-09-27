@@ -1,8 +1,8 @@
 // https://docs.github.com/en/rest/using-the-rest-api/github-event-types?apiVersion=2022-11-28#createevent
 
-import { Actor } from "../model/actor"
-import { CreateEventPayload } from "../model/createEventPayload"
-import { Repo } from "../model/repo"
+const { Actor } = require("../model/actor")
+const { CreateEventPayload } = require("../model/createEventPayload")
+const { Repo } = require("../model/repo")
 
 class CreateEvent {
   constructor(actor, repo, payload, createdAt) {

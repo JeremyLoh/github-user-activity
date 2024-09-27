@@ -1,6 +1,6 @@
-import { Actor } from "../model/actor"
-import { DeleteEventPayload } from "../model/deleteEventPayload"
-import { Repo } from "../model/repo"
+const { Actor } = require("../model/actor")
+const { DeleteEventPayload } = require("../model/deleteEventPayload")
+const { Repo } = require("../model/repo")
 
 class DeleteEvent {
   constructor(actor, repo, payload, createdAt) {

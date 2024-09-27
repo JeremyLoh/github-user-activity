@@ -1,7 +1,7 @@
-import { EOL } from "node:os"
-import { Actor } from "../model/actor"
-import { PushEventPayload } from "../model/pushEventPayload"
-import { Repo } from "../model/repo"
+const { EOL } = require("node:os")
+const { Actor } = require("../model/actor")
+const { PushEventPayload } = require("../model/pushEventPayload")
+const { Repo } = require("../model/repo")
 
 class PushEvent {
   constructor(actor, repo, payload, createdAt) {
