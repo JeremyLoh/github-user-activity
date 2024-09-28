@@ -7,6 +7,8 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+const ENABLE_RATE_LIMIT = false
+
 describe("fetch user event", async () => {
   function mockStdinAndStdout() {
     const stdin = require("mock-stdin").stdin()
@@ -18,7 +20,7 @@ describe("fetch user event", async () => {
 
   it("should fetch no user events for invalid user", async () => {
     const { stdin, stdout } = mockStdinAndStdout()
-    main()
+    main(ENABLE_RATE_LIMIT)
     stdin.send(INVALID_USERNAME + EOL)
     stdin.end()
     await sleep(50)
@@ -33,7 +35,7 @@ describe("fetch user event", async () => {
 
   it("should fetch create user event for valid user and display event summary", async () => {
     const { stdin, stdout } = mockStdinAndStdout()
-    main()
+    main(ENABLE_RATE_LIMIT)
     stdin.send(TEST_USERNAME + EOL)
     stdin.end()
     await sleep(50)
@@ -60,7 +62,7 @@ describe("fetch user event", async () => {
 
   it("should fetch delete event for valid user and display event summary", async () => {
     const { stdin, stdout } = mockStdinAndStdout()
-    main()
+    main(ENABLE_RATE_LIMIT)
     stdin.send(TEST_USERNAME + EOL)
     stdin.end()
     await sleep(50)
@@ -81,7 +83,7 @@ describe("fetch user event", async () => {
 
   it("should fetch pull request event for valid user and display event summary", async () => {
     const { stdin, stdout } = mockStdinAndStdout()
-    main()
+    main(ENABLE_RATE_LIMIT)
     stdin.send(TEST_USERNAME + EOL)
     stdin.end()
     await sleep(50)
@@ -102,7 +104,7 @@ describe("fetch user event", async () => {
 
   it("should fetch push request event for valid user and display event summary", async () => {
     const { stdin, stdout } = mockStdinAndStdout()
-    main()
+    main(ENABLE_RATE_LIMIT)
     stdin.send(TEST_USERNAME + EOL)
     stdin.end()
     await sleep(50)

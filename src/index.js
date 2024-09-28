@@ -2,7 +2,7 @@ const readline = require("node:readline")
 const { EventFactory } = require("./events/eventFactory")
 const { rateLimit } = require("./rateLimit")
 
-async function main() {
+async function main(enableRateLimit = true) {
   printProgramName()
   const rl = readline.createInterface({
     input: process.stdin,
@@ -10,13 +10,13 @@ async function main() {
     terminal: true,
   })
   for await (const line of rl) {
-    await processLine(line)
+    await processLine(line, enableRateLimit)
     printProgramName()
   }
 }
 
-async function processLine(line) {
-  if (!rateLimit.isValidRequest()) {
+async function processLine(line, enableRateLimit) {
+  if (enableRateLimit && !rateLimit.isValidRequest()) {
     console.log("Too many requests. Please try again later")
     return
   }
@@ -39,7 +39,7 @@ async function processLine(line) {
       }
     })
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
   }
 }
 
@@ -51,10 +51,26 @@ async function retrieveUserEvents(username) {
     if (events.status === "404" && events.message === "Not Found") {
       return { error: `Could not fetch user events for user [${username}]` }
     }
-    return { events }
+    return { events, error: null }
   } catch (error) {
-    console.error(error)
+    return { error: parseErrorMessage(error) }
   }
+}
+
+function parseErrorMessage(error) {
+  let output = ""
+  const SECOND_TO_MS = 1000
+  const status = error.response.status
+  const statusText = error.response.statusText
+  output += `${status}: ${statusText}\n`
+
+  const headers = error.response.headers
+  if (headers.has("x-ratelimit-reset")) {
+    // x-ratelimit-reset is given as epoch time in seconds
+    const resetDate = new Date(headers.get("x-ratelimit-reset") * SECOND_TO_MS)
+    output += `\tRate limit exceeded. Please try again after ${resetDate.toString()}`
+  }
+  return output
 }
 
 function printProgramName() {
