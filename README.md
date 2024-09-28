@@ -6,6 +6,16 @@ https://roadmap.sh/projects/github-user-activity
 
 Build a simple command line interface (CLI) to fetch the recent activity of a GitHub user and display it in the terminal. This project will help you practice your programming skills, including working with APIs, handling JSON data, and building a simple CLI application.
 
+# Running the application
+
+Install application dependencies using `npm install`
+
+```shell
+node src/index.js
+# OR
+npm run start
+```
+
 # Requirements
 
 The application should run from the command line, accept the GitHub username as an argument, fetch the user’s recent activity using the GitHub API, and display it in the terminal. The user should be able to:
