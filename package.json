@@ -2,9 +2,10 @@
   "name": "github-user-activity",
   "version": "1.0.0",
   "description": "Fetch github user activity and display it in terminal",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
   },
   "homepage": "https://github.com/JeremyLoh/github-user-activity#readme",
   "devDependencies": {
+    "mock-stdin": "1.0.0",
+    "msw": "2.4.9",
+    "stdout-stderr": "0.1.13",
     "vitest": "2.1.1"
+  },
+  "dependencies": {
+    "ky": "1.7.2"
   }
 }
